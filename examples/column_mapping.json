@@ -1,0 +1,4 @@
+{
+  "repositorio": "name",
+  "imagen_contenedor": "io.openshift.build.image"
+}

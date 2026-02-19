@@ -1,0 +1,14 @@
+[
+  {
+    "name": "rhel8/rhel",
+    "io.openshift.build.image": "quay.io/rhel8/rhel:latest"
+  },
+  {
+    "name": "rhel9/rhel",
+    "io.openshift.build.image": "quay.io/rhel9/rhel:latest"
+  },
+  {
+    "name": "ubi8/ubi",
+    "io.openshift.build.image": "quay.io/ubi8/ubi:latest"
+  }
+]

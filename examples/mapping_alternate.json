@@ -1,0 +1,5 @@
+{
+  "_comment": "Ejemplo de mapeo de columnas para renombrar columnas existentes",
+  "repo_name": "name",
+  "container_image": "io.openshift.build.image"
+}
