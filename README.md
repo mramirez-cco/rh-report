@@ -42,7 +42,7 @@ rh-report/
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/tuusuario/rh-report.git
+git clone https://github.com/mramirez-cco/rh-report.git
 cd rh-report
 
 # Instalar usando Make
@@ -55,7 +55,7 @@ pip install -e .
 ### Opción 2: Desde PyPI (cuando esté publicado)
 
 ```bash
-pip install rh-report
+pip install git+https://github.com/mramirez-cco/rh-report.git
 ```
 
 ### Opción 3: Crear entorno virtual
