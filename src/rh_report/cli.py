@@ -106,7 +106,7 @@ def main(input_file, output_file, output_format, print_output, workers, format, 
     # Guardar o imprimir resultado
     click.echo("")
     click.echo(click.style("💾 Procesando salida...", fg='blue'))
-    
+
     try:
         result = save_dataframe(
             df, 
@@ -114,7 +114,7 @@ def main(input_file, output_file, output_format, print_output, workers, format, 
             output_format=output_format,
             print_output=print_output
         )
-        
+
         if result['mode'] == 'stdout':
             click.echo(result['data'])
         else:
