@@ -49,6 +49,10 @@ def load_dataframe(file_path, format_type=None, column_mapping=None):
             "Usa 'csv', 'excel' o 'json'"
         )
     
+    # Limpiar nombres de columnas (remover espacios al inicio/final)
+    # Esto es importante para compatibilidad con Windows
+    df.columns = df.columns.str.strip()
+    
     # Aplicar mapeo de columnas si se proporciona
     if column_mapping:
         df = apply_column_mapping(df, column_mapping)
