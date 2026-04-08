@@ -42,6 +42,16 @@ def main(input_file, output_file, output_format, print_output, workers, format, 
       rh-report --format csv --mapping config/mapping.json reporte.csv -o resultado.csv
       rh-report --output-format excel -o reporte.xlsx datos.csv
     """
+    
+    click.echo("")
+    click.echo(click.style("  🟡 🟢", fg='white'))
+    click.echo(click.style("  ██████╗ ██████╗  ██████╗", fg='white', bold=True))
+    click.echo(click.style(" ██╔════╝██╔════╝ ██╔═══██╗", fg='white', bold=True))
+    click.echo(click.style(" ██║     ██║      ██║   ██║", fg='white', bold=True))
+    click.echo(click.style(" ╚██████╗╚██████╗ ╚██████╔╝", fg='white', bold=True))
+    click.echo(click.style("  ╚═════╝ ╚═════╝  ╚═════╝", fg='white', bold=True))
+    click.echo(click.style("  c·credibanco", fg='cyan', bold=True))
+    click.echo(click.style("  ─────────────────────────────────────", fg='cyan'))
     click.echo(click.style("🚀 Red Hat Catalog Image Reporter v1.0.0", fg='blue', bold=True))
     click.echo("")
 
