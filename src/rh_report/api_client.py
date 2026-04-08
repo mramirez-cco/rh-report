@@ -9,6 +9,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm import tqdm
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
+import urllib3
 
 
 BASE_URL = "https://catalog.redhat.com/api/containers/v1"
@@ -27,7 +28,11 @@ class CatalogAPIClient:
         """Crea sesión con reintentos automáticos"""
         session = requests.Session()
         session.headers.update({"Accept": "application/json"})
-        
+
+        # deactivate SSL verification
+        session.verify = False
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
         # Configurar reintentos
         retry_strategy = Retry(
             total=3,
