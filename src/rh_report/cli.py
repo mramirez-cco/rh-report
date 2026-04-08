@@ -49,7 +49,7 @@ def main(input_file, output_file, output_format, print_output, workers, format, 
     
     # Validar opciones de salida
     if print_output and output_format == 'excel':
-        click.echo(click.style("❌ No puedes usar --print con formato Excel", fg='red'), err=True)
+        click.echo(click.style("No puedes usar --print con formato Excel", fg='red'), err=True)
         raise click.Abort()
     
     # Cargar mapeo de columnas si se proporciona
@@ -58,22 +58,22 @@ def main(input_file, output_file, output_format, print_output, workers, format, 
         try:
             click.echo(f"🔗 Cargando mapeo de columnas: {click.style(mapping, fg='cyan')}")
             column_mapping = load_mapping_config(mapping)
-            click.echo(click.style("✅ Mapeo cargado correctamente", fg='green'))
+            click.echo(click.style("Mapeo cargado correctamente", fg='green'))
         except Exception as e:
-            click.echo(click.style(f"❌ Error cargando mapeo: {e}", fg='red'), err=True)
+            click.echo(click.style(f"Error cargando mapeo: {e}", fg='red'), err=True)
             raise click.Abort()
 
     try:
         df = load_dataframe(input_file, format_type=format, column_mapping=column_mapping)
     except Exception as e:
-        click.echo(click.style(f"❌ Error cargando archivo: {e}", fg='red'), err=True)
+        click.echo(click.style(f"Error cargando archivo: {e}", fg='red'), err=True)
         raise click.Abort()
 
-    click.echo(f"📊 Registros encontrados: {click.style(str(len(df)), fg='green', bold=True)}")
-    click.echo(f"🔧 Workers concurrentes: {click.style(str(workers), fg='yellow')}")
+    click.echo(f"Registros encontrados: {click.style(str(len(df)), fg='green', bold=True)}")
+    click.echo(f"Workers concurrentes: {click.style(str(workers), fg='yellow')}")
     click.echo("")
 
-    click.echo(click.style("🌐 Consultando API de Red Hat Catalog...", fg='blue'))
+    click.echo(click.style("Consultando API de Red Hat Catalog...", fg='blue'))
     click.echo("")
 
     client = CatalogAPIClient(max_workers=workers)
@@ -82,8 +82,8 @@ def main(input_file, output_file, output_format, print_output, workers, format, 
     unique_repositories = df["name"].unique().tolist()
     unique_images = df["io.openshift.build.image"].unique().tolist()
 
-    click.echo(f"📦 Repositorios únicos: {click.style(str(len(unique_repositories)), fg='cyan')}")
-    click.echo(f"🖼️  Imágenes únicas: {click.style(str(len(unique_images)), fg='cyan')}")
+    click.echo(f"Repositorios únicos: {click.style(str(len(unique_repositories)), fg='cyan')}")
+    click.echo(f"Imágenes únicas: {click.style(str(len(unique_images)), fg='cyan')}")
     click.echo("")
 
     # Consultar repositorios e imágenes concurrentemente
@@ -91,21 +91,21 @@ def main(input_file, output_file, output_format, print_output, workers, format, 
         results = client.fetch_repositories(unique_repositories)
         current_image_results = client.fetch_images(unique_images)
     except Exception as e:
-        click.echo(click.style(f"❌ Error consultando API: {e}", fg='red'), err=True)
+        click.echo(click.style(f"Error consultando API: {e}", fg='red'), err=True)
         raise click.Abort()
 
     # Enriquecer DataFrame
-    click.echo(click.style("🔄 Enriqueciendo datos...", fg='blue'))
+    click.echo(click.style("Enriqueciendo datos...", fg='blue'))
 
     try:
         df = enrich_dataframe(df, results, current_image_results)
     except Exception as e:
-        click.echo(click.style(f"❌ Error enriqueciendo datos: {e}", fg='red'), err=True)
+        click.echo(click.style(f"Error enriqueciendo datos: {e}", fg='red'), err=True)
         raise click.Abort()
 
     # Guardar o imprimir resultado
     click.echo("")
-    click.echo(click.style("💾 Procesando salida...", fg='blue'))
+    click.echo(click.style("Procesando salida...", fg='blue'))
 
     try:
         result = save_dataframe(
@@ -118,16 +118,16 @@ def main(input_file, output_file, output_format, print_output, workers, format, 
         if result['mode'] == 'stdout':
             click.echo(result['data'])
         else:
-            click.echo(click.style("✅ Reporte generado exitosamente!", fg='green', bold=True))
-            click.echo(f"📄 Archivo: {click.style(result['output_file'], fg='cyan')}")
-            click.echo(f"📊 Formato: {click.style(result['format'].upper(), fg='yellow')}")
-            click.echo(f"📝 Total de registros: {click.style(str(len(df)), fg='yellow')}")
+            click.echo(click.style("Reporte generado exitosamente!", fg='green', bold=True))
+            click.echo(f"Archivo: {click.style(result['output_file'], fg='cyan')}")
+            click.echo(f"Formato: {click.style(result['format'].upper(), fg='yellow')}")
+            click.echo(f"Total de registros: {click.style(str(len(df)), fg='yellow')}")
     except Exception as e:
-        click.echo(click.style(f"❌ Error guardando resultado: {e}", fg='red'), err=True)
+        click.echo(click.style(f"Error guardando resultado: {e}", fg='red'), err=True)
         raise click.Abort()
 
     click.echo("")
-    click.echo(click.style("🎉 ¡Proceso completado!", fg='magenta', bold=True))
+    click.echo(click.style("Proceso completado", fg='magenta', bold=True))
 
 
 if __name__ == '__main__':
